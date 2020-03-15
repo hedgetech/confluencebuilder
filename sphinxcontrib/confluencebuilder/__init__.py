@@ -210,7 +210,8 @@ def setup(app):
     # Sphinx 1.8 and higher which math support is embedded; for older versions,
     # users will need to explicitly load 'sphinx.ext.mathbase'.
     if (imgmath is not None and
-            'sphinx.ext.imgmath' not in app.config.extensions):
+            'sphinx.ext.imgmath' not in app.config.extensions and
+            'sphinx.ext.mathjax' not in app.config.extensions):
         imgmath.setup(app)
 
     return {

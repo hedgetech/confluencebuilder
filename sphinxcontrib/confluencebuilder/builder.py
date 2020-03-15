@@ -725,7 +725,7 @@ class ConfluenceBuilder(Builder):
         Args:
             doctree: the doctree to replace blocks on
         """
-        if imgmath is None:
+        if imgmath is None or 'sphinx.ext.mathjax' in self.app.config.extensions:
             return
 
         # imgmath's render_math call expects a translator to be passed

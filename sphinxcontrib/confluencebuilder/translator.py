@@ -1422,20 +1422,22 @@ class ConfluenceTranslator(BaseTranslator):
     # sphinx -- math
     # --------------
 
-    def visit_displaymath(self, node):
-        # unsupported
-        raise nodes.SkipNode
-
     def visit_eqref(self, node):
         # unsupported
         raise nodes.SkipNode
 
     def visit_math(self, node):
-        # handled in "builder" at this time
+        self.body.append(self._start_ac_macro(node, 'mathinline'))
+        self.body.append(self._build_ac_parameter(node, 'body', "<![CDATA[" + node.astext() + ']]>'))
+        self.body.append(self._end_ac_macro(node))
         raise nodes.SkipNode
 
     def visit_math_block(self, node):
-        # handled in "builder" at this time
+        self.body.append(self._start_ac_macro(node, 'mathblock'))
+        self.body.append(self._start_ac_plain_text_body_macro(node))
+        self.body.append(node.astext())
+        self.body.append(self._end_ac_plain_text_body_macro(node))
+        self.body.append(self._end_ac_macro(node))
         raise nodes.SkipNode
 
     # -------------------------
